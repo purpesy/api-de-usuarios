@@ -1,14 +1,16 @@
-var express = require("express")
+var express = require("express");
 var app = express();
 var router = express.Router();
 var HomeController = require("../controllers/HomeController");
 var UserController = require("../controllers/UserController");
 
 // define as rotas, sendo a principal a /
-router.get('/', HomeController.index); //esta chamando a função index do HomeController
-router.post('/user', UserController.create); //esta chamando a função create do UserController
-router.get('/user', UserController.index); //esta chamando a função index do UserController
-router.get('/user/:id', UserController.findUser); //esta chamando a função findUser do UserController
-router.put('/user/:id', UserController.edit); //esta chamando a função edit do UserController
+router.get("/", HomeController.index); //esta chamando a função index do HomeController
+router.post("/user", UserController.create); //esta chamando a função create do UserController
+router.get("/user", UserController.index); //esta chamando a função index do UserController
+router.get("/user/:id", UserController.findUser); //esta chamando a função findUser do UserController
+router.put("/user/:id", UserController.edit); //esta chamando a função edit do UserController
+router.delete("/user/:id", UserController.delete); //esta chamando a função delete do UserController
+
 
 module.exports = router;
