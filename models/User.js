@@ -51,6 +51,38 @@ class User{
             return false;
         }
     }
+
+    async update(id, email_user, nome_user, cargo_user){
+        var user = await this.findById(id);
+        if(user != undefined){
+            var editUser = {}; 
+
+            if(email_user != undefined){
+                var result = await this.findEmail(email_user);
+                if(result == false){
+                    editUser.email_user = email_user; // Adiciona o novo email ao objeto de edição
+                }else{
+                    return {error: "Email já cadastrado"};
+                }
+            }
+            if(nome_user != undefined){
+                editUser.nome_user = nome_user; // Adiciona o novo nome ao objeto de edição
+            }
+
+            if(cargo_user != undefined){
+                editUser.cargo_user = cargo_user; // Adiciona o novo cargo ao objeto de edição
+            }
+
+            try {
+                await knex.update(editUser).table("tbl_users").where({id_user: id});
+                return {success: "Usuário atualizado com sucesso"}; // Retorna mensagem de sucesso
+            } catch (error) {
+                console.log(error);
+                return {error: "Erro ao atualizar usuário"};
+            }
+
+        }
+    }
 }
 
 module.exports = new User();

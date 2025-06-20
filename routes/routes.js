@@ -9,5 +9,6 @@ router.get('/', HomeController.index); //esta chamando a função index do HomeC
 router.post('/user', UserController.create); //esta chamando a função create do UserController
 router.get('/user', UserController.index); //esta chamando a função index do UserController
 router.get('/user/:id', UserController.findUser); //esta chamando a função findUser do UserController
+router.put('/user/:id', UserController.edit); //esta chamando a função edit do UserController
 
 module.exports = router;
