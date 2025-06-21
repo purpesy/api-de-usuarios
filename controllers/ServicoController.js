@@ -10,6 +10,17 @@ class ServicoController {
     }
   }
 
+  async findServico(req, res) {
+    var id = req.params.id;
+    var servico = await Servico.findById(id);
+
+    if (!servico) {
+      return res.status(404).json({ error: "Serviço não encontrado" });
+    } else {
+      return res.status(200).json(servico);
+    }
+  }
+
   async create(req, res) {
     var { nome, preco, desc } = req.body;
 
@@ -40,9 +51,7 @@ class ServicoController {
     }
   }
 
-  async findServico(req,res){
-    
-  }
+  
 }
 
 module.exports = new ServicoController();
