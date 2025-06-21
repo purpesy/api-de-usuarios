@@ -20,6 +20,7 @@ router.get("/servicos", ServicoController.index);
 router.post("/servicos", ServicoController.create);
 router.put("/servicos/:id", ServicoController.edit);
 router.get("/servicos/:id", ServicoController.findServico);
+router.delete("/servicos/:id", ServicoController.delete);
 
 
 module.exports = router;

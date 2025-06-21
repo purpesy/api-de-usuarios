@@ -51,7 +51,22 @@ class ServicoController {
     }
   }
 
+  async delete(req, res) { // Método para deletar um usuário existente
+      var id = req.params.id;
+      var result = await Servico.delete(id);
   
+      if (result != undefined) {
+        if (result.error) {
+          return res.status(406).json({ error: result.error });
+        } else {
+          return res
+            .status(200)
+            .json({ mensagem: "Serviço deletado com sucesso" });
+        }
+      } else {
+        return res.status(406).json({ error: "Erro no servidor" });
+      }
+    }
 }
 
 module.exports = new ServicoController();
