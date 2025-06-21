@@ -3,6 +3,7 @@ var app = express();
 var router = express.Router();
 var HomeController = require("../controllers/HomeController");
 var UserController = require("../controllers/UserController");
+var ServicoController = require("../controllers/ServicoController");
 var AdminAuth = require("../middlewares/AdminAuth");
 
 // define as rotas, sendo a principal a /
@@ -15,4 +16,8 @@ router.delete("/user/:id",AdminAuth, UserController.delete); //esta chamando a f
 router.post("/recover-password", UserController.recoverPassword); //esta chamando a função recoverPassword do UserController
 router.post("/change-password", UserController.changePassword); //esta chamando a função changePassword do UserController
 router.post("/login", UserController.login); //esta chamando a função login do UserController
+router.get("/servicos", ServicoController.index);
+router.post("/servicos", ServicoController.create);
+
+
 module.exports = router;

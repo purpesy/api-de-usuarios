@@ -10,6 +10,17 @@ class ServicoController {
         }
     }
 
+    async create(req,res){
+        var { nome, preco, desc } = req.body;
+
+        if(!nome || !preco ){
+            return res.status(400).json({error: "Nome ou preço inválidos"});
+        }
+
+        await Servico.new(nome, preco, desc);
+        res.status(200).json({mensagem: "Serviço criado com sucesso"});
+    }
+
 }
 
 module.exports = new ServicoController();
