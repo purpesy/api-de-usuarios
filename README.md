@@ -131,7 +131,7 @@ database: 'db_apiusers'
 
 1. **Inicie o servidor**
 ```bash
-npm start
+nodemon index.js
 # ou
 node index.js
 ```
