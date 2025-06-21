@@ -32,7 +32,7 @@ class User{
 
     async findByEmail(email){ // Buscar usuário por email
         try {
-            var result = await knex.select(["id_user", "nome_user", "email_user", "cargo_user"]).table("tbl_users").where({email_user: email});
+            var result = await knex.select(["id_user", "nome_user", "email_user", "senha_user", "cargo_user"]).table("tbl_users").where({email_user: email});
             if(result.length > 0){
                 return result[0]; // Retorna o primeiro usuário encontrado
             } else {

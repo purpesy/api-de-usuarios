@@ -13,4 +13,5 @@ router.put("/user/:id", UserController.edit); //esta chamando a função edit do
 router.delete("/user/:id", UserController.delete); //esta chamando a função delete do UserController
 router.post("/recover-password", UserController.recoverPassword); //esta chamando a função recoverPassword do UserController
 router.post("/change-password", UserController.changePassword); //esta chamando a função changePassword do UserController
+router.post("/login", UserController.login); //esta chamando a função login do UserController
 module.exports = router;

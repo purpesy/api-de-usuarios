@@ -1,5 +1,10 @@
 var User = require("../models/User");
 var PasswordToken = require("../models/PasswordToken");
+var jwt = require("jsonwebtoken");
+var bcrypt = require('bcryptjs');
+
+var jwtSecret = "senha123kkk"
+
 // Importa o modelo User
 class UserController {
   async index(req, res) { // Método para listar todos os usuários
@@ -114,7 +119,30 @@ class UserController {
         return res.status(406).json({ error: "Token inválido" });
     }
 }
+
+  async login(req,res){
+    var { email, password } = req.body;
+    var user = await User.findByEmail(email);
+    if(user != undefined){
+        var resultado = await bcrypt.compare(password, user.senha_user);
+        if(resultado){
+            var token = jwt.sign({ email: user.email_user, cargo: user.cargo_user }, jwtSecret);
+            res.status(200);
+            res.send({token:token});
+        }else{
+            return res.status(406).json({ error: "Senha incorreta" });
+        }
+
+    }else{
+        return res.status(406).json({ error: "Usuário não encontrado" });
+    }
+  }
 }
 
 module.exports = new UserController();
 // O código acima define um controlador de usuário com dois métodos: index e create.
+
+
+
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2FzMTIzQGdtYWlsLmNvbSIsImNhcmdvIjowLCJpYXQiOjE3NTA0NjUzODJ9.ZC4L4GE0-rVP91CT90XZZxp-U_vegSaajJLF1z7Lk6I
