@@ -18,6 +18,8 @@ router.post("/change-password", UserController.changePassword); //esta chamando 
 router.post("/login", UserController.login); //esta chamando a função login do UserController
 router.get("/servicos", ServicoController.index);
 router.post("/servicos", ServicoController.create);
+router.put("/servicos/:id", ServicoController.edit);
+router.get("/servicos/:id", ServicoController.findServico);
 
 
 module.exports = router;
