@@ -1,7 +1,8 @@
 var User = require("../models/User");
+var PasswordToken = require("../models/PasswordToken");
 // Importa o modelo User
 class UserController {
-  async index(req, res) {
+  async index(req, res) { // Método para listar todos os usuários
     var users = await User.findAll();
     if (!users || users.length === 0) {
       return res.status(404).json({ error: "Nenhum usuário encontrado" });
@@ -12,7 +13,7 @@ class UserController {
     }
   }
 
-  async findUser(req, res) {
+  async findUser(req, res) { // Método para encontrar um usuário por ID
     var id = req.params.id;
     var user = await User.findById(id);
     if (!user) {
@@ -24,7 +25,7 @@ class UserController {
     }
   }
 
-  async create(req, res) {
+  async create(req, res) { // Método para criar um novo usuário
     var { name, email, password } = req.body;
     // está recebendo os dados do body da requisição
 
@@ -51,7 +52,7 @@ class UserController {
     res.status(200).json({ mensagem: "Usuario criado com sucesso" });
   }
 
-  async edit(req, res) {
+  async edit(req, res) { // Método para editar um usuário existente
     var id = req.params.id;
     var { email, name, cargo } = req.body;
 
@@ -70,7 +71,7 @@ class UserController {
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res) { // Método para deletar um usuário existente
     var id = req.params.id;
     var result = await User.delete(id);
 
@@ -86,6 +87,33 @@ class UserController {
       return res.status(406).json({ error: "Erro no servidor" });
     }
   }
+
+  async recoverPassword(req, res) { // Método para recuperar a senha de um usuário
+    var { email } = req.body;
+    var result = await PasswordToken.create(email);
+
+    if (result.status) {
+      res.status(200);  
+      res.send("" + result.token);
+      // Se o token for criado com sucesso, retorna status 200 com mensagem de sucesso
+    } else {
+      return res.status(406).json({ error: result.error });
+      // Se houver erro, retorna status 406 com mensagem de erro
+    }
+  }
+
+  async changePassword(req, res) { // Método para alterar a senha de um usuário
+    var token = req.body.token;
+    var password = req.body.password;
+    
+    var isTokenValid = await PasswordToken.validade(token);
+    if(isTokenValid.status){
+        await User.changePassword(isTokenValid.token.id_user, password, isTokenValid.token.token);
+        return res.status(200).json({ mensagem: "Senha alterada com sucesso" });
+    }else{
+        return res.status(406).json({ error: "Token inválido" });
+    }
+}
 }
 
 module.exports = new UserController();

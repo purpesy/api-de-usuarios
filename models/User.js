@@ -1,11 +1,12 @@
-const e = require("express");
+
 var knex = require("../database/connection.js");
 var bcrypt = require('bcryptjs'); // Importa o bcryptjs para criptografar senhas
+const PasswordToken = require("./PasswordToken.js");
 // Classe User que representa o modelo de usuário
 
 class User{
 
-    async findAll(){
+    async findAll(){ // listar todos
         try {
             var result = await knex.select(["id_user", "nome_user", "email_user", "cargo_user"]).table("tbl_users");
             return result; // Retorna todos os usuários encontrados
@@ -15,7 +16,7 @@ class User{
         }
     }
 
-    async findById(id){
+    async findById(id){ // Buscar usuário por ID
         try {
             var result = await knex.select(["id_user", "nome_user", "email_user", "cargo_user"]).table("tbl_users").where({id_user: id});
             if(result.length > 0){
@@ -29,7 +30,21 @@ class User{
         }
     }
 
-    async new(email_user,senha_user,nome_user){
+    async findByEmail(email){ // Buscar usuário por email
+        try {
+            var result = await knex.select(["id_user", "nome_user", "email_user", "cargo_user"]).table("tbl_users").where({email_user: email});
+            if(result.length > 0){
+                return result[0]; // Retorna o primeiro usuário encontrado
+            } else {
+                return null; // Retorna null se nenhum usuário for encontrado
+            }
+        } catch (error) {
+            console.log(error);
+            return null; // Retorna null em caso de erro
+        }
+    }
+
+    async new(email_user,senha_user,nome_user){ // Cria um novo usuário
         var hash = await bcrypt.hash(senha_user, 10); // Criptografa a senha com bcrypt
         try {
             await knex.insert({email_user,senha_user:hash,nome_user,cargo_user:0}).table("tbl_users");
@@ -38,7 +53,7 @@ class User{
         }       
     }
 
-    async findEmail(email){
+    async findEmail(email){ // Verifica se o email já está cadastrado
         try {
             var result = await knex.select("*").from("tbl_users").where({email_user: email});
             if(result.length > 0){
@@ -52,7 +67,7 @@ class User{
         }
     }
 
-    async update(id, email_user, nome_user, cargo_user){
+    async update(id, email_user, nome_user, cargo_user){ // Atualiza os dados de um usuário
         var user = await this.findById(id);
         if(user != undefined){
             var editUser = {}; 
@@ -84,7 +99,7 @@ class User{
         }
     }
 
-    async delete(id){
+    async delete(id){ // Deleta um usuário pelo ID
         var user = await this.findById(id);
         if(user != undefined){
             try {
@@ -97,6 +112,12 @@ class User{
         } else {
             return {error: "Usuário não encontrado"}; // Retorna mensagem de erro se o usuário não for encontrado
         }
+    }
+
+    async changePassword(id, newPassword, token){ // Altera a senha de um usuário
+        var hash = await bcrypt.hash(newPassword, 10);
+        await knex.update({senha_user: hash}).table("tbl_users").where({id_user: id});
+        await PasswordToken.setUsed(token);
     }
 }
 
