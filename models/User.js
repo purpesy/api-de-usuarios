@@ -1,4 +1,3 @@
-
 var knex = require("../database/connection.js");
 var bcrypt = require('bcryptjs'); // Importa o bcryptjs para criptografar senhas
 const PasswordToken = require("./PasswordToken.js");
