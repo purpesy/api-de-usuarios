@@ -3,14 +3,15 @@ var app = express();
 var router = express.Router();
 var HomeController = require("../controllers/HomeController");
 var UserController = require("../controllers/UserController");
+var AdminAuth = require("../middlewares/AdminAuth");
 
 // define as rotas, sendo a principal a /
 router.get("/", HomeController.index); //esta chamando a função index do HomeController
-router.post("/user", UserController.create); //esta chamando a função create do UserController
-router.get("/user", UserController.index); //esta chamando a função index do UserController
-router.get("/user/:id", UserController.findUser); //esta chamando a função findUser do UserController
-router.put("/user/:id", UserController.edit); //esta chamando a função edit do UserController
-router.delete("/user/:id", UserController.delete); //esta chamando a função delete do UserController
+router.post("/user",AdminAuth, UserController.create); //esta chamando a função create do UserController
+router.get("/user", AdminAuth, UserController.index); //esta chamando a função index do UserController
+router.get("/user/:id",AdminAuth, UserController.findUser); //esta chamando a função findUser do UserController
+router.put("/user/:id",AdminAuth, UserController.edit); //esta chamando a função edit do UserController
+router.delete("/user/:id",AdminAuth, UserController.delete); //esta chamando a função delete do UserController
 router.post("/recover-password", UserController.recoverPassword); //esta chamando a função recoverPassword do UserController
 router.post("/change-password", UserController.changePassword); //esta chamando a função changePassword do UserController
 router.post("/login", UserController.login); //esta chamando a função login do UserController
