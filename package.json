@@ -1,12 +1,14 @@
 {
   "name": "user-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API REST completa para gerenciamento de usuários, serviços e agendamentos",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Lucas Gabriel",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -15,6 +17,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^9.0.2",
     "knex": "^0.21.2",
-    "mysql2": "^2.1.0"
+    "mysql2": "^2.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }
