@@ -48,9 +48,9 @@ class Agendamento {
     }
   }
 
-  async new(id_user, id_servico, data_agendamento, obs_agendamento) {
+  async new(id_user, id_servico, data_agendamento, obs_agendamento, status_agendamento) {
     try {
-      await knex.insert({ id_user, id_servico, data_agendamento, obs_agendamento }).table("tbl_agendamento");
+      await knex.insert({ id_user, id_servico, data_agendamento, obs_agendamento, status_agendamento }).table("tbl_agendamento");
     } catch (error) {
       console.log(error);
     }
@@ -89,11 +89,28 @@ class Agendamento {
           console.log(error);
           return { error: "Erro ao atualizar agendamento" };
         }
+      }else{
+        return { error: "Agendamento não encontrado" };
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+    async delete(id) {
+        var agendamento = await this.findById(id);
+        if (agendamento != undefined) {
+        try {
+            await knex.delete().table("tbl_agendamento").where({ id_agendamento: id });
+            return { success: "Agendamento deletado com sucesso" }; // Retorna mensagem de sucesso
+        } catch (error) {
+            console.log(error);
+            return { error: "Erro ao deletar agendamento" };
+        }
+        } else {
+        return { error: "Agendamento não encontrado" };
+        }
+    }
 }
 
 module.exports = new Agendamento();

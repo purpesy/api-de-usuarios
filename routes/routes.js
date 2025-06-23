@@ -38,5 +38,6 @@ router.get("/agendamentos", AgendamentoController.index);
 router.get("/agendamentos/:id", AgendamentoController.findAgendamento);
 router.post("/agendamentos", AgendamentoController.create);
 router.put("/agendamentos/:id", AgendamentoController.edit);
+router.delete("/agendamentos/:id", AgendamentoController.delete);
 
 module.exports = router;
