@@ -29,6 +29,23 @@ class AgendamentoController{
         await Agendamento.new(usuario, servico, data, observacao);
         res.status(200).json({ mensagem: "Agendamento criado com sucesso" });
     }
+
+    async edit(req, res) {
+        var id = req.params.id;
+        var { usuario, servico, data, observacao, status } = req.body;
+
+        var result = await Agendamento.update(id, usuario, servico, data, observacao, status);
+
+        if (result != undefined) {
+            if (result.error) {
+                return res.status(406).json({ error: result.error });
+            } else {
+                return res.status(200).json({ mensagem: "Agendamento editado com sucesso" });
+            }
+        } else {
+            return res.status(406).json({ error: "Erro no servidor" });
+        }
+    }
 }
 
 module.exports = new AgendamentoController();

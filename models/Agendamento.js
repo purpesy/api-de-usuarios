@@ -55,6 +55,45 @@ class Agendamento {
       console.log(error);
     }
   }
+
+  async update(id, usuario, servico, data, observacao, status) {
+    try {
+      var agendamento = await this.findById(id);
+      if (agendamento != undefined) {
+        var editAgendamento = {};
+
+        if (usuario != undefined) {
+          editAgendamento.id_user = usuario;
+        }
+
+        if (servico != undefined) {
+          editAgendamento.id_servico = servico;
+        }
+
+        if (data != undefined) {
+          editAgendamento.data_agendamento = data;
+        }
+
+        if (observacao != undefined) {
+          editAgendamento.obs_agendamento = observacao;
+        }
+
+        if (status != undefined) {
+          editAgendamento.status_agendamento = status;
+        }
+
+        try {
+          await knex.update(editAgendamento).table("tbl_agendamento").where({ id_agendamento: id });
+          return { success: "Agendamento atualizado com sucesso" }; // Retorna mensagem de sucesso
+        } catch (error) {
+          console.log(error);
+          return { error: "Erro ao atualizar agendamento" };
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = new Agendamento();
