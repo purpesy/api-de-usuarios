@@ -147,6 +147,134 @@ const options = {
               example: 'Operação realizada com sucesso'
             }
           }
+        },
+        Servico: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              description: 'ID único do serviço',
+              example: 1
+            },
+            nome: {
+              type: 'string',
+              description: 'Nome do serviço',
+              example: 'Consulta Médica'
+            },
+            descricao: {
+              type: 'string',
+              description: 'Descrição detalhada do serviço',
+              example: 'Consulta médica geral com clínico geral'
+            },
+            preco: {
+              type: 'number',
+              format: 'float',
+              description: 'Preço do serviço',
+              example: 150.00
+            },
+            disponivel: {
+              type: 'boolean',
+              description: 'Disponibilidade do serviço',
+              example: true
+            }
+          }
+        },
+        ServicoCreate: {
+          type: 'object',
+          required: ['nome', 'descricao', 'preco'],
+          properties: {
+            nome: {
+              type: 'string',
+              description: 'Nome do serviço',
+              example: 'Instalação de Som'
+            },
+            descricao: {
+              type: 'string',
+              description: 'Descrição detalhada do serviço',
+              example: 'Instalação completa de sistema de som automotivo'
+            },
+            preco: {
+              type: 'number',
+              format: 'float',
+              description: 'Preço do serviço',
+              example: 200.00
+            },
+            disponivel: {
+              type: 'boolean',
+              description: 'Disponibilidade do serviço',
+              example: true
+            }
+          }
+        },
+        Agendamento: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              description: 'ID único do agendamento',
+              example: 1
+            },
+            usuario_id: {
+              type: 'integer',
+              description: 'ID do usuário que fez o agendamento',
+              example: 2
+            },
+            servico_id: {
+              type: 'integer',
+              description: 'ID do serviço agendado',
+              example: 1
+            },
+            data_agendamento: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Data e hora do agendamento',
+              example: '2024-07-15T14:30:00Z'
+            },
+            status: {
+              type: 'string',
+              enum: ['agendado', 'confirmado', 'cancelado', 'concluido'],
+              description: 'Status do agendamento',
+              example: 'agendado'
+            },
+            observacoes: {
+              type: 'string',
+              description: 'Observações adicionais',
+              example: 'Cliente prefere período da manhã'
+            }
+          }
+        },
+        AgendamentoCreate: {
+          type: 'object',
+          required: ['usuario_id', 'servico_id', 'data_agendamento'],
+          properties: {
+            usuario_id: {
+              type: 'integer',
+              description: 'ID do usuário que está fazendo o agendamento',
+              example: 2
+            },
+            servico_id: {
+              type: 'integer',
+              description: 'ID do serviço a ser agendado',
+              example: 1
+            },
+            data_agendamento: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Data e hora desejada para o agendamento',
+              example: '2024-07-15T14:30:00Z'
+            },
+            status: {
+              type: 'string',
+              enum: ['agendado', 'confirmado', 'cancelado', 'concluido'],
+              description: 'Status inicial do agendamento',
+              example: 'agendado'
+            },
+            observacoes: {
+              type: 'string',
+              description: 'Observações ou instruções especiais',
+              example: 'Favor confirmar por telefone'
+            }
+          }
         }
       }
     },
