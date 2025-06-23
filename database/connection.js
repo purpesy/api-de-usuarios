@@ -4,7 +4,9 @@ var knex = require('knex')({
       host : 'localhost',
       user : 'root',
       password : '',
-      database : 'db_apiusers'
+      database : 'db_apiusers',
+      timezone: 'America/Sao_Paulo',
+      dateStrings: true
     }
   });
 
