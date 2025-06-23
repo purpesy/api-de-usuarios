@@ -347,7 +347,7 @@ router.delete("/user/:id", AdminAuth, UserController.delete);
  *               items:
  *                 $ref: '#/components/schemas/Servico'
  */
-router.get("/servicos", ServicoController.index);
+router.get("/servicos", AdminAuth, ServicoController.index);
 
 /**
  * @swagger
@@ -372,7 +372,7 @@ router.get("/servicos", ServicoController.index);
  *       404:
  *         description: Serviço não encontrado
  */
-router.get("/servicos/:id", ServicoController.findServico);
+router.get("/servicos/:id", AdminAuth, ServicoController.findServico);
 
 /**
  * @swagger
@@ -395,7 +395,7 @@ router.get("/servicos/:id", ServicoController.findServico);
  *       200:
  *         description: Serviço criado com sucesso
  */
-router.post("/servicos", ServicoController.create);
+router.post("/servicos", AdminAuth, ServicoController.create);
 
 /**
  * @swagger
@@ -420,7 +420,7 @@ router.post("/servicos", ServicoController.create);
  *       200:
  *         description: Serviço atualizado com sucesso
  */
-router.put("/servicos/:id", ServicoController.edit);
+router.put("/servicos/:id", AdminAuth, ServicoController.edit);
 
 /**
  * @swagger
@@ -439,7 +439,7 @@ router.put("/servicos/:id", ServicoController.edit);
  *       200:
  *         description: Serviço deletado com sucesso
  */
-router.delete("/servicos/:id", ServicoController.delete);
+router.delete("/servicos/:id", AdminAuth, ServicoController.delete);
 
 // **************************
 //          AGENDAMENTO
@@ -461,7 +461,7 @@ router.delete("/servicos/:id", ServicoController.delete);
  *               items:
  *                 $ref: '#/components/schemas/Agendamento'
  */
-router.get("/agendamentos", AgendamentoController.index);
+router.get("/agendamentos", AdminAuth, AgendamentoController.index);
 
 /**
  * @swagger
@@ -486,7 +486,7 @@ router.get("/agendamentos", AgendamentoController.index);
  *       404:
  *         description: Agendamento não encontrado
  */
-router.get("/agendamentos/:id", AgendamentoController.findAgendamento);
+router.get("/agendamentos/:id", AdminAuth, AgendamentoController.findAgendamento);
 
 /**
  * @swagger
@@ -535,7 +535,7 @@ router.post("/agendamentos", AgendamentoController.create);
  *       200:
  *         description: Agendamento atualizado com sucesso
  */
-router.put("/agendamentos/:id", AgendamentoController.edit);
+router.put("/agendamentos/:id", AdminAuth, AgendamentoController.edit);
 
 /**
  * @swagger
@@ -554,6 +554,6 @@ router.put("/agendamentos/:id", AgendamentoController.edit);
  *       200:
  *         description: Agendamento deletado com sucesso
  */
-router.delete("/agendamentos/:id", AgendamentoController.delete);
+router.delete("/agendamentos/:id",AgendamentoController.delete);
 
 module.exports = router;

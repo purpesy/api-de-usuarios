@@ -13,7 +13,7 @@
 ## 🎯 **Destaques do Projeto**
 
 ✅ **Sistema Completo de Negócio** - Usuários + Serviços + Agendamentos  
-✅ **API REST Profissional** - 15+ endpoints com CRUD completo  
+✅ **API REST Profissional** - 18 endpoints com CRUD completo  
 ✅ **Autenticação JWT** - Sistema seguro de login e autorização  
 ✅ **Sistema de Agendamentos** - Gestão completa de agenda de serviços  
 ✅ **Recuperação de Senha** - Sistema de tokens únicos  
@@ -160,6 +160,31 @@ CREATE TABLE tbl_passwordtokens (
     token VARCHAR(255) NOT NULL,
     used INT DEFAULT 0,
     FOREIGN KEY (id_user) REFERENCES tbl_users(id_user)
+);
+
+-- Tabela de serviços
+CREATE TABLE tbl_servicos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10,2) NOT NULL,
+    disponivel BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Tabela de agendamentos
+CREATE TABLE tbl_agendamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    servico_id INT NOT NULL,
+    data_agendamento DATETIME NOT NULL,
+    status ENUM('agendado', 'confirmado', 'cancelado', 'concluido') DEFAULT 'agendado',
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES tbl_users(id_user),
+    FOREIGN KEY (servico_id) REFERENCES tbl_servicos(id)
 );
 ```
 
@@ -367,8 +392,8 @@ const isValid = await bcrypt.compare(password, user.senha_user);
 ### **📈 Métricas do Projeto**
 - **📝 Linhas de código**: ~1.200+ linhas
 - **📂 Arquivos**: 15+ módulos organizados
-- **🌐 Endpoints totais**: 15+ rotas RESTful
-- **🛡️ Endpoints protegidos**: 8 rotas com autenticação
+- **🌐 Endpoints totais**: 18 rotas RESTful
+- **🛡️ Endpoints protegidos**: 13 rotas com autenticação
 - **🔒 Níveis de segurança**: 2 (user/admin)
 - **📊 Modelos de dados**: 4 (User, PasswordToken, Servico, Agendamento)
 - **⚡ Performance**: Response time < 100ms
