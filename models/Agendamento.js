@@ -48,9 +48,9 @@ class Agendamento {
     }
   }
 
-  async new(id_usuario, id_servico, data_agendamento) {
+  async new(id_user, id_servico, data_agendamento, obs_agendamento) {
     try {
-      await knex.insert({ id_usuario, id_servico, data_agendamento }).table("tbl_agendamento");
+      await knex.insert({ id_user, id_servico, data_agendamento, obs_agendamento }).table("tbl_agendamento");
     } catch (error) {
       console.log(error);
     }

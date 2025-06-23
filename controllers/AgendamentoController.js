@@ -18,6 +18,17 @@ class AgendamentoController{
             return res.status(404).json({ error: "Agendamento não encontrado" });
         }
     }
+
+    async create(req, res) {
+        var { usuario, servico, data, observacao } = req.body;
+
+        if (!usuario || !servico || !data) {
+            return res.status(400).json({ error: "Dados inválidos para agendamento" });
+        }
+
+        await Agendamento.new(usuario, servico, data, observacao);
+        res.status(200).json({ mensagem: "Agendamento criado com sucesso" });
+    }
 }
 
 module.exports = new AgendamentoController();

@@ -13,7 +13,7 @@ router.get("/", HomeController.index); //esta chamando a função index do HomeC
 //          USERS
 // **************************
 router.post("/user",AdminAuth, UserController.create); //esta chamando a função create do UserController
-router.get("/user", AdminAuth, UserController.index); //esta chamando a função index do UserController
+router.get("/user", UserController.index); //esta chamando a função index do UserController
 router.get("/user/:id",AdminAuth, UserController.findUser); //esta chamando a função findUser do UserController
 router.put("/user/:id",AdminAuth, UserController.edit); //esta chamando a função edit do UserController
 router.delete("/user/:id",AdminAuth, UserController.delete); //esta chamando a função delete do UserController
@@ -36,5 +36,5 @@ router.delete("/servicos/:id", ServicoController.delete);
 // **************************
 router.get("/agendamentos", AgendamentoController.index);
 router.get("/agendamentos/:id", AgendamentoController.findAgendamento);
-
+router.post("/agendamentos", AgendamentoController.create);
 module.exports = router;
