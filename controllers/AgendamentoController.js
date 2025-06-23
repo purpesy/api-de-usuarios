@@ -8,6 +8,16 @@ class AgendamentoController{
             return res.status(200).json(agendamentos);
         }
     }
+
+    async findAgendamento(req, res){
+        var id = req.params.id;
+        var agendamento = await Agendamento.findById(id);
+        if (agendamento != undefined) {
+            return res.status(200).json(agendamento);
+        } else {
+            return res.status(404).json({ error: "Agendamento não encontrado" });
+        }
+    }
 }
 
 module.exports = new AgendamentoController();

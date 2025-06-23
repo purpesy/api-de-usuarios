@@ -35,5 +35,6 @@ router.delete("/servicos/:id", ServicoController.delete);
 //          AGENDAMENTO
 // **************************
 router.get("/agendamentos", AgendamentoController.index);
+router.get("/agendamentos/:id", AgendamentoController.findAgendamento);
 
 module.exports = router;
