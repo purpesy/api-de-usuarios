@@ -392,15 +392,6 @@ const isValid = await bcrypt.compare(password, user.senha_user);
 ### **Lucas Gabriel**
 **Desenvolvedor Full-Stack** especializado em Node.js e tecnologias web modernas.
 
-```json
-{
-  "especialidades": ["Node.js", "React.js", "PHP", "MySQL"],
-  "foco": "Backend Development & API",
-  "experiencia": "Projetos full-stack em produção",
-  "objetivo": "Desenvolvimento de soluções escaláveis e seguras"
-}
-```
-
 ### **🌐 Links**
 - **LinkedIn**: [lucas-dev-gabriel](https://www.linkedin.com/in/lucas-dev-gabriel)
 - **GitHub**: [purpesy](https://github.com/purpesy)
